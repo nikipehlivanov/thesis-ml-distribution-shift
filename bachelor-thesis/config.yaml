@@ -1,0 +1,28 @@
+project:
+  random_seed: 42
+
+data:
+  start_date: "2005-01-01"
+  end_date: "2024-12-31"
+
+assets:
+  sp500:
+    raw_file: "data/raw/sp500_futures.csv"
+    processed_file: "data/processed/sp500_features.csv"
+
+  nasdaq100:
+    raw_file: "data/raw/nasdaq100_futures.csv"
+    processed_file: "data/processed/nasdaq100_features.csv"
+
+external:
+  vix_file: "data/raw/vix.csv"
+
+features:
+  return_lags: 10
+  volatility_windows: [5, 10]
+
+experiments:
+  train_start: "2010-01-01"
+  train_end: "2018-12-31"
+  ood_start: "2020-01-01"
+  ood_end: "2022-12-31"
