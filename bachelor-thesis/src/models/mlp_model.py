@@ -147,7 +147,6 @@ def fit_mlp_model(train_df):
 
     return model
 
-
 def predict_mlp_model(fitted_model, test_df):
     """
     Generate predictions from a fitted MLP model.
