@@ -2,6 +2,7 @@ import numpy as np
 from sklearn.neural_network import MLPRegressor
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import Pipeline
+from sklearn.compose import TransformedTargetRegressor
 
 # MLP model configuration
 
@@ -114,17 +115,21 @@ def build_mlp_model():
     - max_iter sufficiently high
     - random_state fixed
     """
-    model = Pipeline([
-        ("scaler", StandardScaler()),
-        ("mlp", MLPRegressor(
-            hidden_layer_sizes=(16, 8),
-            activation="relu",
-            solver="adam",
-            alpha=0.001,
-            max_iter=2000,
-            random_state=RANDOM_STATE
-        ))
-    ])
+    base_model = Pipeline([
+    ("scaler", StandardScaler()),
+    ("mlp", MLPRegressor(
+        hidden_layer_sizes=(8,),
+        activation="relu",
+        solver="adam",
+        alpha=0.01,
+        learning_rate_init=0.0001,
+        max_iter=5000,
+        random_state=RANDOM_STATE))])
+
+    model = TransformedTargetRegressor(
+        regressor=base_model,
+        transformer=StandardScaler()
+    )
 
     return model
 
